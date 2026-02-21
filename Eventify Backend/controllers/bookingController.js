@@ -1,5 +1,7 @@
 const Booking = require("../models/Booking");
 const Event = require("../models/Event");
+const transporter = require("../config/mailer");
+const { bookingConfirmationHTML } = require("../utils/emailTemplates");
 
 // POST /api/bookings
 exports.createBooking = async (req, res) => {
@@ -34,6 +36,33 @@ exports.createBooking = async (req, res) => {
       status: "pending",
       bookingDate: new Date().toISOString().split("T")[0],
     });
+    // Send confirmation email (fire-and-forget)
+    try {
+      const event = await Event.findById(eventId);
+      await transporter.sendMail({
+        from: `"Eventify" <${process.env.GMAIL_USER}>`,
+        to: email,
+        subject: `Booking Confirmation — ${eventName}`,
+        html: bookingConfirmationHTML({
+          fullName,
+          eventName,
+          bookingDate: new Date().toISOString().split("T")[0],
+          paidAmount,
+          transactionId,
+          bookingId: booking._id.toString(),
+          eventDate: event?.date || "TBA",
+          startTime: event?.startTime || "",
+          endTime: event?.endTime || "",
+          location: event?.location || "",
+          venue: event?.venue || "",
+          instructor: event?.instructor || "",
+          difficulty: event?.difficulty || "",
+        }),
+      });
+    } catch (mailErr) {
+      console.error("Failed to send confirmation email:", mailErr.message);
+    }
+
     res.status(201).json({ ...booking.toObject(), id: booking._id.toString() });
   } catch (err) {
     res.status(500).json({ message: err.message });
