@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-dark-950: #030712;
+  --color-dark-900: #0a0f1e;
+  --color-dark-800: #111827;
+  --color-dark-700: #1a2236;
+  --color-dark-600: #243044;
+  --color-dark-500: #374151;
+  
+  --color-ice-50: #ecfeff;
+  --color-ice-100: #cffafe;
+  --color-ice-200: #a5f3fc;
+  --color-ice-300: #67e8f9;
+  --color-ice-400: #22d3ee;
+  --color-ice-500: #06b6d4;
+  --color-ice-600: #0891b2;
+  
+  --color-fire-50: #fff7ed;
+  --color-fire-100: #ffedd5;
+  --color-fire-200: #fed7aa;
+  --color-fire-300: #fdba74;
+  --color-fire-400: #fb923c;
+  --color-fire-500: #f97316;
+  --color-fire-600: #ea580c;
+  
+  --color-ember-400: #f87171;
+  --color-ember-500: #ef4444;
+  
+  --color-mint-400: #34d399;
+  --color-mint-500: #10b981;
+  
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-dark-900);
+    color: #e2e8f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-dark-900);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-dark-600);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dark-500);
+  }
+}
+
+@utility glass {
+  background: rgba(17, 24, 40, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@utility glass-light {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@utility gradient-ice {
+  background: linear-gradient(135deg, var(--color-ice-500), var(--color-ice-400));
+}
+
+@utility gradient-fire {
+  background: linear-gradient(135deg, var(--color-fire-500), var(--color-fire-400));
+}
+
+@utility gradient-mixed {
+  background: linear-gradient(135deg, var(--color-ice-500), var(--color-fire-500));
+}
+
+@utility gradient-text-ice {
+  background: linear-gradient(135deg, var(--color-ice-300), var(--color-ice-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility gradient-text-fire {
+  background: linear-gradient(135deg, var(--color-fire-300), var(--color-fire-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility gradient-text-mixed {
+  background: linear-gradient(135deg, var(--color-ice-300), var(--color-fire-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility glow-ice {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 0 60px rgba(6, 182, 212, 0.05);
+}
+
+@utility glow-fire {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.15), 0 0 60px rgba(249, 115, 22, 0.05);
+}
+
+@utility text-shadow-sm {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@utility hero-gradient {
+  background: radial-gradient(ellipse at 20% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(249, 115, 22, 0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 50%);
+}
+
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@utility animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+@utility line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@utility line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
