@@ -27,6 +27,7 @@ app.use("/api/waitlist", require("./routes/waitlist"));
 app.use("/api/favorites", require("./routes/favorites"));
 app.use("/api/promos", require("./routes/promos"));
 app.use("/api/admin", require("./routes/admin"));
+app.use("/api/upload", require("./routes/upload"));
 app.use("/api", require("./routes/content"));
 
 // Health check

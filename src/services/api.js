@@ -98,6 +98,31 @@ export const bookingsAPI = {
   },
 };
 
+// ── Upload ──
+export const uploadAPI = {
+  uploadImage: async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    const token = getToken();
+    const h = {};
+    if (token) h["Authorization"] = `Bearer ${token}`;
+    const res = await fetch(`${API_BASE}/upload`, {
+      method: "POST",
+      headers: h,
+      body: formData,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok)
+      throw new Error(data.message || `Upload failed (${res.status})`);
+    return data;
+  },
+  deleteImage: (url) =>
+    request("/upload", {
+      method: "DELETE",
+      body: JSON.stringify({ url }),
+    }),
+};
+
 // ── Waitlist ──
 export const waitlistAPI = {
   add: (body) =>

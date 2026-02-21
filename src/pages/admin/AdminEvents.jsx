@@ -8,12 +8,13 @@ import {
 import { format, parseISO } from 'date-fns';
 import { fetchEvents, createEvent, updateEventAsync, deleteEventAsync } from '../../store/slices/eventsSlice';
 import { EVENT_TYPES, DIFFICULTY_LEVELS } from '../../constants/eventTypes';
+import ImageUploader from '../../components/ui/ImageUploader';
 import toast from 'react-hot-toast';
 
 const emptyEvent = {
   name: '', type: 'ICE_BATH', location: '', venue: '', date: '', startTime: '', endTime: '',
   price: 0, capacity: 20, booked: 0, bookingDeadline: '', description: '',
-  images: ['https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800'],
+  images: [],
   instructor: '', difficulty: 'All Levels', equipment: [], safetyNotes: '',
   status: 'active', featured: false,
 };
@@ -184,10 +185,11 @@ export default function AdminEvents() {
               <label className="block text-xs font-medium text-slate-400 mb-1.5">Instructor</label>
               <input value={form.instructor} onChange={e => setForm({ ...form, instructor: e.target.value })} className={inputCls} placeholder="Instructor name" required />
             </div>
-            <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1.5">Image URL(s) — comma separated</label>
-              <input value={form.images?.join(', ')} onChange={e => setForm({ ...form, images: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })} className={inputCls} placeholder="https://..." />
-            </div>
+            <ImageUploader
+              images={form.images || []}
+              onChange={(urls) => setForm({ ...form, images: urls })}
+              maxImages={5}
+            />
             <div>
               <label className="block text-xs font-medium text-slate-400 mb-1.5">Equipment — comma separated</label>
               <input value={equipmentInput} onChange={e => setEquipmentInput(e.target.value)} className={inputCls} placeholder="Towel, Water bottle, ..." />
